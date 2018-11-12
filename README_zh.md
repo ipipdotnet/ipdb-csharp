@@ -19,7 +19,7 @@
             Console.WriteLine(info);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Console.WriteLine(e.StackTrace);
         }
 </pre>
 
@@ -38,10 +38,10 @@
 
             Dictionary<string, string> m = db.findMap("1.12.13.1", "CN");
 
-            Console.WriteLine(m);
+            Console.WriteLine(string.Join("\n", m.Select(i => $"{i.Key}: {i.Value}")));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Console.WriteLine(e.StackTrace);
         }
 </pre>
 
@@ -52,7 +52,7 @@
             Console.WriteLine(string.Join(",", db.find("1.68.1.255", "CN")));
             Console.WriteLine(db.findInfo("1.68.1.255", "CN"));
         } catch (Exception e) {
-            e.printStackTrace();
+            Console.WriteLine(e.StackTrace);
         }
 </pre>
 
@@ -69,9 +69,9 @@
 
             Dictionary<string, string> m = db.findMap("114.114.114.114", "CN");
 
-            Console.WriteLine(m);
+            Console.WriteLine(string.Join("\n", m.Select(i => $"{i.Key}: {i.Value}")));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Console.WriteLine(e.StackTrace);
         }
 </pre>
