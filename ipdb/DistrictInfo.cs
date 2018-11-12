@@ -53,7 +53,7 @@ namespace ipdb
             return data[7];
         }
 
-        public string toString()
+        public override string ToString()
         {
             var sb = new StringBuilder();
 

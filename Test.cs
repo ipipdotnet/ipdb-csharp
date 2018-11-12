@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ipdb
 {
@@ -22,12 +23,10 @@ namespace ipdb
         {
             try
             {
-
                 var db = new BaseStation("c:/work/ipdb/base_station.ipdb");
-                Console.WriteLine(string.Join(",", db.fields()));
+                Console.WriteLine(string.Join(", ", db.fields()));
 
-                Console.WriteLine(string.Join(",", db.find("112.224.4.99", "CN")));
-
+                Console.WriteLine(string.Join(", ", db.find("112.224.4.99", "CN")));
             }
             catch (Exception e)
             {
@@ -41,7 +40,7 @@ namespace ipdb
             {
                 var db = new District("C:/work/ipdb/city.free.ipdb");
 
-                Console.WriteLine(string.Join(",", db.find("1.12.13.1", "CN")));
+                Console.WriteLine(string.Join(", ", db.find("1.12.13.1", "CN")));
 
                 var info = db.findInfo("8.8.8.8", "CN");
                 if (info != null)
@@ -51,8 +50,7 @@ namespace ipdb
 
                 var m = db.findMap("114.114.114.114", "CN");
 
-                Console.WriteLine(m);
-
+                Console.WriteLine(string.Join("\n", m.Select(i => $"{i.Key}: {i.Value}")));
             }
             catch (Exception e)
             {
@@ -66,7 +64,7 @@ namespace ipdb
             {
                 var db = new District("C:/work/ipdb/china_district.ipdb");
 
-                Console.WriteLine(string.Join(",", db.find("1.12.13.1", "CN")));
+                Console.WriteLine(string.Join(", ", db.find("1.12.13.1", "CN")));
 
                 var info = db.findInfo("1.12.13.1", "CN");
                 if (info != null)
@@ -77,8 +75,7 @@ namespace ipdb
 
                 var m = db.findMap("1.12.13.1", "CN");
 
-                Console.WriteLine(m);
-
+                Console.WriteLine(string.Join("\n", m.Select(i => $"{i.Key}: {i.Value}")));
             }
             catch (Exception e)
             {
@@ -92,7 +89,7 @@ namespace ipdb
             {
                 var db = new IDC("C:/work/ipdb/idc_list.ipdb");
 
-                Console.WriteLine(string.Join(",", db.find("1.1.1.1", "CN")));
+                Console.WriteLine(string.Join(", ", db.find("1.1.1.1", "CN")));
 
                 var info = db.findInfo("8.8.8.8", "CN");
 
@@ -100,8 +97,7 @@ namespace ipdb
 
                 var m = db.findMap("114.114.114.114", "CN");
 
-                Console.WriteLine(m);
-
+                Console.WriteLine(string.Join("\n", m.Select(i => $"{i.Key}: {i.Value}")));
             }
             catch (Exception e)
             {
@@ -115,14 +111,11 @@ namespace ipdb
             {
                 var db = new City("C:/work/ipdb/city.ipv4.ipdb");
 
-                Console.WriteLine(string.Join(",", db.find("1.1.1.1", "CN")));
+                Console.WriteLine(string.Join(", ", db.find("1.1.1.1", "CN")));
 
                 var info = db.findInfo("118.28.1.1", "CN");
 
                 Console.WriteLine(info);
-
-
-
             }
             catch (Exception e)
             {
@@ -136,7 +129,7 @@ namespace ipdb
             {
                 var db = new City("C:/work/ipdb/city.ipv6.ipdb");
 
-                Console.WriteLine(string.Join(",", db.find("2001:250:200::", "CN")));
+                Console.WriteLine(string.Join(", ", db.find("2001:250:200::", "CN")));
 
                 var info = db.findInfo("2001:250:201::", "CN");
 
@@ -144,8 +137,7 @@ namespace ipdb
 
                 var m = db.findMap("2001:250:220::", "CN");
 
-                Console.WriteLine(m);
-
+                Console.WriteLine(string.Join("\n", m.Select(i => $"{i.Key}: {i.Value}")));
             }
             catch (Exception e)
             {

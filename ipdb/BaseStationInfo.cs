@@ -43,7 +43,7 @@ namespace ipdb
             return data[5];
         }
 
-        public string toString()
+        public override string ToString()
         {
             var sb = new StringBuilder();
 
