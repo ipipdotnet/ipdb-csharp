@@ -21,7 +21,7 @@ namespace ipdb
         {
 
             var file = new FileInfo(name);
-            fileSize = (int) file.Length;
+            fileSize = (int)file.Length;
 
             data = File.ReadAllBytes(name);
 
@@ -40,12 +40,12 @@ namespace ipdb
             nodeCount = meta.nodeCount;
             this.meta = meta;
 
-            if ((meta.totalSize + (int) metaLength + 4) != data.Length)
+            if ((meta.totalSize + (int)metaLength + 4) != data.Length)
             {
                 throw new InvalidDatabaseException("database file size error");
             }
 
-            data = data.Skip((int) metaLength + 4).ToArray();
+            data = data.Skip((int)metaLength + 4).ToArray();
 
             if (v4offset == 0)
             {
@@ -74,7 +74,7 @@ namespace ipdb
             {
                 off = meta.Languages[language];
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return null;
             }
@@ -83,8 +83,11 @@ namespace ipdb
 
             if (addr.IndexOf(":") > 0)
             {
-                ipv = IPAddress.Parse(addr).GetAddressBytes();
-                if (ipv == null)
+                try
+                {
+                    ipv = IPAddress.Parse(addr).GetAddressBytes();
+                }
+                catch (Exception)
                 {
                     throw new IPFormatException("ipv6 format error");
                 }
@@ -97,8 +100,11 @@ namespace ipdb
             }
             else if (addr.IndexOf(".") > 0)
             {
-                ipv = ipv = IPAddress.Parse(addr).GetAddressBytes();
-                if (ipv == null)
+                try
+                {
+                    ipv = IPAddress.Parse(addr).GetAddressBytes();
+                }
+                catch (Exception)
                 {
                     throw new IPFormatException("ipv4 format error");
                 }
@@ -113,12 +119,12 @@ namespace ipdb
                 throw new IPFormatException("ip format error");
             }
 
-            var node = 0;
+            int node;
             try
             {
                 node = findNode(ipv);
             }
-            catch (NotFoundException nfe)
+            catch (NotFoundException)
             {
                 return null;
             }
@@ -151,11 +157,7 @@ namespace ipdb
                 node = readNode(node, 1 & ((0xFF & binary[i / 8]) >> 7 - (i % 8)));
             }
 
-            if (node == nodeCount)
-            {
-                return 0;
-            }
-            else if (node > nodeCount)
+            if (node > nodeCount)
             {
                 return node;
             }
@@ -172,7 +174,7 @@ namespace ipdb
             }
 
             byte b = 0;
-            var size = (int) (bytesToLong(
+            var size = (int)(bytesToLong(
                 b,
                 b,
                 data[resoloved],
@@ -191,7 +193,7 @@ namespace ipdb
         {
             var off = node * 8 + index * 4;
 
-            return (int) (bytesToLong(
+            return (int)(bytesToLong(
                 data[off],
                 data[off + 1],
                 data[off + 2],
