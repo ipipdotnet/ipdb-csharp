@@ -45,12 +45,12 @@ namespace ipdb
 
         public string getLatitude()
         {
-            return data[6];
+            return data[7];
         }
 
         public string getLongitude()
         {
-            return data[7];
+            return data[6];
         }
 
         public override string ToString()
