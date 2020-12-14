@@ -39,11 +39,11 @@ namespace ipdb
         public DistrictInfo findInfo(string addr, string language)  {
 
             var data = reader.find(addr, language);
-            if (data == null) {
+            if (data == null || data.Length != reader.getMeta().Fields.Length) {
                 return null;
             }
 
-            return new DistrictInfo(data);
+            return new DistrictInfo(data, reader.getMeta().Fields);
         }
 
         public bool isIPv4()

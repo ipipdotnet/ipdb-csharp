@@ -39,10 +39,10 @@ namespace ipdb
         public IDCInfo findInfo(string addr, string language)  {
 
             var data = reader.find(addr, language);
-            if (data == null) {
+            if (data == null || data.Length != reader.getMeta().Fields.Length) {
                 return null;
             }
-            return new IDCInfo(data);
+            return new IDCInfo(data, reader.getMeta().Fields);
         }
 
         public bool isIPv4()

@@ -36,11 +36,11 @@ namespace ipdb
         public CityInfo findInfo(string addr, string language)  {
 
             var data = reader.find(addr, language);
-            if (data == null) {
+            if (data == null || data.Length != reader.getMeta().Fields.Length) {
                 return null;
             }
 
-            return new CityInfo(data);
+            return new CityInfo(data, reader.getMeta().Fields);
         }
 
         public bool isIPv4()
