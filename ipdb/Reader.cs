@@ -81,7 +81,7 @@ namespace ipdb
 
             byte[] ipv;
 
-            if (addr.IndexOf(":") > 0)
+            if (addr.IndexOf(":") >= 0)
             {
                 try
                 {
